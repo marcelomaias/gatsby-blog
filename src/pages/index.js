@@ -1,21 +1,52 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+const BlogPage = ({ data }) => {
+  return (
+    <Layout>
+      <SEO title="Blog Page" />
 
-export default IndexPage
+      {data.allMarkdownRemark.edges.map(post => (
+        <div className="post-item" key={post.node.id}>
+          <div className="post-item-date">
+            <div>{post.node.frontmatter.date}</div>
+            <small>By {post.node.frontmatter.author}</small>
+          </div>
+          <div className="post-item-content">
+            <h2>
+              <Link to={post.node.frontmatter.path}>
+                {post.node.frontmatter.title}
+              </Link>
+            </h2>
+
+            <p>{post.node.frontmatter.summary}</p>
+            <Link to={post.node.frontmatter.path}>Read More</Link>
+          </div>
+        </div>
+      ))}
+    </Layout>
+  )
+}
+
+export const pageQuery = graphql`
+  query blogQuery {
+    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            date
+            author
+            path
+            summary
+          }
+        }
+      }
+    }
+  }
+`
+export default BlogPage
