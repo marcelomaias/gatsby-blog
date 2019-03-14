@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">
-  Marcelo Maia's website
+  Simple Markdown Blog
 </h1>
 
 This blog is made with Gatsby, which uses GraphQL to query a specified folder in the file system for markdown files and loads them as blog posts.
