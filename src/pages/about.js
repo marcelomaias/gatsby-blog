@@ -15,8 +15,7 @@ const AboutPage = () => (
         This blog is made with <a href="https://www.gatsbyjs.org">Gatsby</a>,
         which uses <a href="https://graphql.org/">GraphQL</a> to query a
         specified folder in the file system for markdown files and loads them as
-        blog posts. Any changes in those files are of course also reflected in
-        the front-end.
+        blog posts.
       </p>
       <figure>
         <img src={filesPic} alt="Files" />
